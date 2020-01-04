@@ -117,9 +117,12 @@ class VOCDetection(data.Dataset):
             self._year = year
             rootpath = os.path.join(self.root, 'VOC' + year)
             for line in open(os.path.join(rootpath, 'ImageSets', 'Main', name + '.txt')):
-                img_id, value = line.split()
-                if value != '1':
-                    continue
+                try:
+                    img_id, value = line.split()
+                    if value != '1':
+                        continue
+                except:
+                    img_id = line.strip()
                 self.ids.append((rootpath, img_id))
 
     def __getitem__(self, index):

@@ -107,9 +107,12 @@ def voc_eval(detpath,
     #imagenames = [x.strip() for x in lines]
     imagenames = []
     for line in lines:
-        img_id, value = line.split()
-        if value != '1':
-            continue
+        try:
+            img_id, value = line.split()
+            if value != '1':
+                continue
+        except:
+            img_id = line.strip()
         imagenames.append(img_id)
 
     if not os.path.isfile(cachefile):
